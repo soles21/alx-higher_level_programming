@@ -1,31 +1,27 @@
 #include <stdlib.h>
-#include <lists.h>
+#include "lists.h"
 
-typedef struct listint_s
-{
-    int n;
-    struct listint_s *next;
-} listint_t;
-
-listint_t *insert_node(listint_t **head, int number)
-{
-    listint_t *new_node;
-    listint_t *current;
-
-    new_node = malloc(sizeof(listint_t));
-    if (new_node == NULL)
-    {
+listint_t *insert_node(listint_t **head, int number) {
+    listint_t *new_node = malloc(sizeof(listint_t));
+    if (new_node == NULL) {
         return NULL;
     }
-
     new_node->n = number;
-    new_node->next = NULL;
 
-    if (*head == NULL)
-    {
-        *head = new_node;
-        return new_node;
+    listint_t *curr = *head;
+    listint_t *prev = NULL;
+    while (curr != NULL && curr->n < number) {
+        prev = curr;
+        curr = curr->next;
     }
 
-    current = *head;
-    while (current->next != NULL
+    if (prev == NULL) {
+        new_node->next = *head;
+        *head = new_node;
+    } else {
+        new_node->next = curr;
+        prev->next = new_node;
+    }
+
+    return new_node;
+}
