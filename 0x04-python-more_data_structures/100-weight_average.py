@@ -5,9 +5,12 @@
 def weight_average(my_list=[]):
     if not my_list:
         return 0
-    score = 0
-    weight = 0
-    for i in my_list:
-        score += i[0] * i[1]
-        weight += i[1]
-    return score / weight
+
+    num = 0
+    den = 0
+
+    for tup in my_list:
+        num += tup[0] * tup[1]
+        den += tup[1]
+
+    return (num / den)
